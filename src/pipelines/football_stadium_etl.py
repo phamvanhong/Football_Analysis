@@ -2,6 +2,7 @@ import sys
 sys.path.append('../Football_Analysis')
 from src.objects.web_scraping import WebScraping
 import pandas as pd
+import json
 
 def extract_data(**kwargs):
     """
@@ -16,7 +17,10 @@ def extract_data(**kwargs):
 
     for table in table_elements:
         target_table.append(pd.read_html(str(table))[0])
-    return target_table[target_table_index].to_csv("./data/stadiums.csv", index=False)
+    json_target_table = target_table[target_table_index].to_json(orient='records')
+    kwargs['ti'].xcom_push(key='stadium_data', value=json_target_table)
+    
+    return "Data extracted and pushed to XCom"
 
 
     
