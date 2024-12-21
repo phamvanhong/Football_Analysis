@@ -1,5 +1,6 @@
 import sys
-sys.path.append('../Football_Analysis')
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.objects.web_scraping import WebScraping
 import pandas as pd
 import json
